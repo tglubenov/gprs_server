@@ -22,7 +22,7 @@ gprs_device.settings = {
 	ip:		'0.0.0.0',	// default listen on all IPs
 	port:		3500,		// 0 = random, 'listening' event reports port
 	connections:	3,		// 10 simultaneous connections
-	timeout:	10		// 10 seconds idle timeout
+	timeout:	1		// 10 seconds idle timeout
 }
 
 //Create server
@@ -37,7 +37,7 @@ gprs_device.createServer = function( vars ) {
 
 	// start server
 	gprs_device.server = net.createServer( function( socket ) {
-		console.log(Date.now().toLocaleString(), 'creating server in gprs_device.js...');
+		console.log(Date.now(), 'creating server in gprs_device.js...');
 		// socket idle timeout
 		if( gprs_device.settings.timeout > 0 ) {
 			socket.setTimeout( gprs_device.settings.timeout * 1000, function() {
@@ -47,7 +47,7 @@ gprs_device.createServer = function( vars ) {
 			})
 		}
 	}).listen( gprs_device.settings.port, gprs_device.settings.ip, function() {
-		console.log(Date.now().toLocaleString(), 'This port is listening...');
+		console.log(Date.now(), 'This port is listening...');
 		gprs_device.emit( 'listening', gprs_device.server.address() );
 	});
 
@@ -55,12 +55,12 @@ gprs_device.createServer = function( vars ) {
 	gprs_device.server.maxConnections = gprs_device.settings.connections;
 
 	gprs_device.server.on('connection', (socket) => {
-		socket.setEncoding('ascii');
+		//socket.setEncoding('ascii');
 		var data = '';
 		socket.on('data', (chunk) => {
 			data += chunk;
-			console.log(chunk.toString());
-			console.log(data.toString());
+			console.log(chunk.toString('utf8'));
+			console.log(data.toString('utf8'));
 		});
 		console.log(typeof (data), data.length);
 	});
