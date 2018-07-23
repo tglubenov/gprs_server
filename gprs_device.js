@@ -22,7 +22,7 @@ gprs_device.settings = {
 	ip:		'0.0.0.0',	// default listen on all IPs
 	port:		3500,		// 0 = random, 'listening' event reports port
 	connections:	3,		// 10 simultaneous connections
-	timeout:	5		// 10 seconds idle timeout
+	timeout:	10		// 10 seconds idle timeout
 }
 
 //Create server
@@ -59,8 +59,10 @@ gprs_device.createServer = function( vars ) {
 		var data = '';
 		socket.on('data', (chunk) => {
 			data += chunk;
+			console.log(chunk.toString());
+			console.log(data.toString());
 		});
-		console.log(data);
+		console.log(typeof (data));
 	});
 
 	// inbound connection
