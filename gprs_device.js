@@ -46,41 +46,49 @@ gprs_device.createServer = function( vars ) {
 				socket.destroy()
 			})
 		}
-
 	}).listen( gprs_device.settings.port, gprs_device.settings.ip, function() {
 		console.log('This port is listening...');
-		gprs_device.emit( 'listening', gprs_device.server.address() )
-	})
+		gprs_device.emit( 'listening', gprs_device.server.address() );
+	});
 
 	// maximum number of slots
-	gprs_device.server.maxConnections = gprs_device.settings.connections
+	gprs_device.server.maxConnections = gprs_device.settings.connections;
+
+	gprs_device.server.on('connection', (socket) => {
+		socket.setEncoding('utf8');
+		var data = '';
+		socket.on('data', (chunk) => {
+			data += chunk;
+		});
+		console.log(data);
+	});
 
 	// inbound connection
-	gprs_device.server.on( 'connection', function( socket ) {
-		socket.setEncoding( 'utf8' )
-		var data = ''
-			socket.on( 'data', function( chunk ) {
-				data += chunk;
-				//This dummy data comment it when you are getting data dynamically
-				// data = '(027028641389BR00160123A1428.4284N07850.1819E020.90557101.200000000000L00000000)';
-				var gps = {}
-				gps = gprs_device.parse( data )
-				if( data != '' ) {
-					
-					var gps = gprs_device.parse( data )
-					console.log(gps)
-					if( gps ) {
-						gprs_device.emit( 'trackGPS', gps )
-					} else {
-						gprs_device.emit( 'fail', {
-							reason:	'Cannot parse GPS data from device',
-							socket:	socket,
-							input:	data
-						})
-					}
-				}
-			})
-	})
+	// gprs_device.server.on( 'connection', function( socket ) {
+	// 	socket.setEncoding( 'utf8' )
+	// 	var data = ''
+	// 		socket.on( 'data', function( chunk ) {
+	// 			data += chunk;
+	// 			This dummy data comment it when you are getting data dynamically
+	// 			data = '(027028641389BR00160123A1428.4284N07850.1819E020.90557101.200000000000L00000000)';
+				// var gps = {}
+				// gps = gprs_device.parse( data )
+				// if( data != '' ) {
+				//
+				// 	var gps = gprs_device.parse( data )
+				// 	console.log(gps)
+				// 	if( gps ) {
+				// 		gprs_device.emit( 'trackGPS', gps )
+				// 	} else {
+				// 		gprs_device.emit( 'fail', {
+				// 			reason:	'Cannot parse GPS data from device',
+				// 			socket:	socket,
+				// 			input:	data
+				// 		})
+				// 	}
+				// }
+			// })
+	// })
 }
 gprs_device.parse = function (raw){
 	var IMEI = raw.substring (3,raw.indexOf('B'));
