@@ -37,7 +37,7 @@ gprs_device.createServer = function( vars ) {
 
 	// start server
 	gprs_device.server = net.createServer( function( socket ) {
-		console.log(Date.now(), 'creating server in gprs_device.js...');
+		console.log(Date.now().toLocaleString(), 'creating server in gprs_device.js...');
 		// socket idle timeout
 		if( gprs_device.settings.timeout > 0 ) {
 			socket.setTimeout( gprs_device.settings.timeout * 1000, function() {
@@ -47,7 +47,7 @@ gprs_device.createServer = function( vars ) {
 			})
 		}
 	}).listen( gprs_device.settings.port, gprs_device.settings.ip, function() {
-		console.log(Date.now(), 'This port is listening...');
+		console.log(Date.now().toLocaleString(), 'This port is listening...');
 		gprs_device.emit( 'listening', gprs_device.server.address() );
 	});
 
@@ -62,7 +62,7 @@ gprs_device.createServer = function( vars ) {
 			console.log(chunk.toString());
 			console.log(data.toString());
 		});
-		console.log(typeof (data), length(data));
+		console.log(typeof (data), data.length);
 	});
 
 	// inbound connection
