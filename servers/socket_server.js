@@ -20,6 +20,10 @@ net.createServer((socket) => {
         handleGPRS(socket.name + ">" + data, socket);
     });
 
+    socket.on('error', function (e) {
+        console.log('error', e);
+    });
+
     socket.on('end', () => {
         handleGPRS(socket.name + " leave the system");
     });
@@ -60,6 +64,8 @@ net.createServer((socket) => {
 
         gprs_obj['receive_timestamp'] = new Date;
         gprs_obj['version'] = '1.0';
+        gprs_obj['sender_address'] = socket.remoteAddress;
+        gprs_obj['sender_port'] = socket.remotePort;
 
         if (gprs_obj['lat']) {
             lister = gprs_obj['lat'].split(' ');
