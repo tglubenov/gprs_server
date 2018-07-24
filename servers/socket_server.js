@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 var gprs_device_list = [];
 
 mongoose.Promise = global.Promise;
-/ Mongoose connection to MongoDB
+// Mongoose connection to MongoDB
 mongoose.connect('mongodb://lg:TGL2018!!@ds247141.mlab.com:47141/lg_dev', function (error) {
     if (error) {
         console.log(error);
