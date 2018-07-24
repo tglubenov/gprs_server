@@ -18,9 +18,10 @@ var lg = mongoose.model('lg', {
         type: String
     },
     geometry: {
-        type: String,
-        geometry: Object,
-        properties: Object
+        type: Object
+    },
+    properties: {
+        type: Object,
     }
 });
 
