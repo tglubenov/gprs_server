@@ -1,8 +1,27 @@
 // Load TCP Lib
 net = require('net');
+const mongoose = require('mongoose');
 
 // Keep track on GPRS Clients
 var gprs_device_list = [];
+
+mongoose.Promise = global.Promise;
+/ Mongoose connection to MongoDB
+mongoose.connect('mongodb://lg:TGL2018!!@ds247141.mlab.com:47141/lg_dev', function (error) {
+    if (error) {
+        console.log(error);
+    }
+});
+
+var lg = mongoose.model('lg', {
+    type: {
+        type: String
+    },
+    geometry: {
+        type: String,
+        coordinates: Array
+    }
+});
 
 // Start TCP Server
 net.createServer((socket) => {
@@ -99,6 +118,13 @@ net.createServer((socket) => {
                 coordinates: [gprs_obj.lat, gprs_obj.lon]
             }
         }
+
+        var newObj = new lg(geojson_object);
+        newObj.save().then((doc) => {
+            console.log('saved lg:', doc);
+        }, (e) => {
+            console.log('Unable to save the object');
+        });
 
         console.log(geojson_object, typeof geojson_object);
     }
