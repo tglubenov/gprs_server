@@ -3,6 +3,7 @@ const hbs = require('hbs');
 
 const app = express();
 
+hbs.registerPartials('views/partials');
 app.set('view engine', 'hbs');
 
 const mongoose = require('mongoose');
