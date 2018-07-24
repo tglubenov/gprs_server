@@ -8,7 +8,7 @@ var gprs_device_list = [];
 net.createServer((socket) => {
 
     // Identify this device
-    socket.name = socket.remoteAddress + ":" + socket.repotePort;
+    socket.name = socket.remoteAddress + ":" + socket.remotePort;
 
     //  Put new device to the list
     gprs_device_list.push(socket);
@@ -17,7 +17,7 @@ net.createServer((socket) => {
     //  Log to Mongo/Rethink DB logic here
 
     socket.on('data', (data) => {
-        handleGPRS(socket.name + "> " + data, socket);
+        handleGPRS(socket.name + ">" + data, socket);
     });
 
     socket.on('end', () => {
@@ -41,7 +41,5 @@ net.createServer((socket) => {
 //Push message on server terminal
 console.log("TCP Server running on port 3500 ...");
 
-
 function GPRS_parse(data) {
-
 }
