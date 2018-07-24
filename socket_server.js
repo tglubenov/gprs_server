@@ -28,10 +28,11 @@ net.createServer((socket) => {
     function handleGPRS(message, sender) {
         // save message to database and handle it
         const msg = message.toString();
-        console.log(msg, typeof (msg), msg.length);
+        console.log(msg);
+        console.log(msg.length, typeof (msg));
 
         // console.log(sender);
-        console.log(message);
+        // console.log(message);
         // process.stdout.write(message);
     }
 
