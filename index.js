@@ -1,6 +1,9 @@
-
 const express = require('express');
+const hbs = require('hbs');
+
 const app = express();
+
+app.set('view engine', 'hbs');
 
 const mongoose = require('mongoose');
 
@@ -36,7 +39,9 @@ app.get('/hello', (req, res) => {
 });
 
 
-
+app.get('/about', (req, res) => {
+    res.render('about.hbs');
+});
 
 
 const port = process.env.PORT || 8080;
