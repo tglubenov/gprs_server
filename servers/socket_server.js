@@ -31,18 +31,18 @@ net.createServer((socket) => {
         console.log(msg);
         console.log(msg.length, typeof (msg));
 
-        ttt = msg.replace(/LGSN /g, '\n;LGS:123,lat:"');
-        ttt = ttt.replace(/ E /g, '",lon:"');
+        ttt = msg.replace(/LGSN /g, '\n;LGS:123,lat:');
+        ttt = ttt.replace(/ E /g, ',lon:');
 
-        ttt = ttt.replace(/ M1 /g, '",M1:"');
-        ttt = ttt.replace(/ M2 /g, '",M2:"');
-        ttt = ttt.replace(/ MR /g, '",MR:"');
-        ttt = ttt.replace(/ SR /g, '",SR:"');
-        ttt = ttt.replace(/ SL /g, '",SL:"');
-        ttt = ttt.replace(/ TS /g, '",TS:"');
-        ttt = ttt.replace(/ PD /g, '",PD:"');
-        ttt = ttt.replace(/ R1 /g, '",R1:"');
-        ttt = ttt.replace(/ S /g, '",S:"');
+        ttt = ttt.replace(/ M1 /g, ',M1:');
+        ttt = ttt.replace(/ M2 /g, ',M2:');
+        ttt = ttt.replace(/ MR /g, ',MR:');
+        ttt = ttt.replace(/ SR /g, ',SR:');
+        ttt = ttt.replace(/ SL /g, ',SL:');
+        ttt = ttt.replace(/ TS /g, ',TS:');
+        ttt = ttt.replace(/ PD /g, ',PD:');
+        ttt = ttt.replace(/ R1 /g, ',R1:');
+        ttt = ttt.replace(/ S /g, ',S:');
 
         // remove all null characters
         ttt = ttt.replace(/\0/g, '');
