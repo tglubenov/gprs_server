@@ -31,7 +31,8 @@ net.createServer((socket) => {
         console.log(msg);
         console.log(msg.length, typeof (msg));
 
-        ttt = msg.replace(/LGSN /g, '\n;LGS:123,lat:');
+//        ttt = msg.replace(/LGSN /g, '\n;LGS:123,lat:');
+        ttt = msg.replace(/LGSN /g, '\nLGS;lat:');
         ttt = ttt.replace(/ E /g, ',lon:');
 
         ttt = ttt.replace(/ M1 /g, ',M1:');
@@ -82,8 +83,18 @@ net.createServer((socket) => {
             }
         }
 
-        console.log(gprs_obj, typeof gprs_obj);
-        console.log(gprs_obj.lon, gprs_obj.lat);
+        geojson_object = {}
+        geojson_object['type'] = 'Feature';
+        geojson_object['properties'] = gprs_obj;
+
+        if (gprs_obj.lat && gprs_obj.lon) {
+            geojson_object['geometry'] = {
+                type: "Point",
+                coordinates: [gprs_obj.lat, gprs_obj.lon]
+            }
+        }
+
+        console.log(geojson_object, typeof geojson_object);
     }
 
 }).listen(3500);
