@@ -13,14 +13,11 @@ mongoose.connect('mongodb://lg:TGL2018!!@ds247141.mlab.com:47141/lg_dev', functi
     }
 });
 
-var lg = mongoose.model('lg', {
-    type: {
-        type: String
-    },
-    geometry: {
-        type: String,
-        coordinates: Array
-    }
+
+// Mongoose Schema definition
+var Schema = mongoose.Schema;
+var lg = new Schema({
+    type: Schema.Types.Mixed
 });
 
 // Start TCP Server
