@@ -2,12 +2,34 @@
 const express = require('express');
 const app = express();
 
+const mongoose = require('mongoose');
 
-const mongo_lab = 'mongodb://<dbuser>:<dbpassword>@ds247141.mlab.com:47141/lg_dev';
+// Mongoose connection to MongoDB
+mongoose.connect('mongodb://lg:TGL2018!!@ds247141.mlab.com:47141/lg_dev', function (error) {
+    if (error) {
+        console.log(error);
+    }
+});
+
+// Mongoose Schema definition
+var Schema = mongoose.Schema;
+var JsonSchema = new Schema({
+    name: String,
+    type: Schema.Types.Mixed
+});
+
+// Mongoose Model definition
+var Json = mongoose.model('JString', JsonSchema, 'layer_collection');
+
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+/* Get Home Page */
+//app.get('/');
 
 app.get('/hello', (req, res) => {
     res.send('Hello MapsLab.io');
@@ -22,56 +44,25 @@ app.listen(port, () => {
     console.log(`Listening on ${port} ...`);
 });
 
-
 /*
-const morgan = require('morgan');
-const helmet = require('helmet');
-const logger = require('./logger');
+https://medium.com/@martin.sikora/node-js-websocket-simple-chat-tutorial-2def3a841b61
 
-app.use(helmet());
-app.use(morgan('combined'));
+https://blogs.scientificamerican.com/doing-good-science/the-quest-for-underlying-order-inside-the-frauds-of-diederik-stapel-part-1/
 
-app.use(logger);
+https://blogs.scientificamerican.com/doing-good-science/reluctance-to-act-on-suspicions-about-fellow-scientists-inside-the-frauds-of-diederik-stapel-part-4/
 
-app.use(function (req, res, next) {
-    console.log('Authenticating ...');
-    next();
-});
+https://www.nytimes.com/2013/04/28/magazine/diederik-stapels-audacious-academic-fraud.html?pagewanted=all&_r=0
 
-const courses = [
-    {id:1, name: 'c1'},
-    {id:2, name: 'c2'},
-    {id:3, name: 'c3'}
-]
+https://www.rethinkdb.com/docs/guide/javascript/
 
-app.get('/api/courses', (req, res) => {
-    res.send(courses);
-});
+https://www.mkyong.com/mongodb/mongodb-allow-remote-access/
 
-app.get('/api/courses/:id', (req, res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) {
-        res.send('404')
-    }
-    res.send(course);
-});
+https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93
 
-app.post('/api/courses', (req, res) => {
-    const course = {
-        id: courses.length +1,
-        name: req.body.name
-    };
-    courses.push(course);
-    res.send(course);
-});
+https://codeburst.io/vue-crud-x-a-highly-customisable-crud-component-using-vuejs-and-vuetify-2b1539ce2054
 
-app.get('/api/posts/:year/:month', (req, res) => {
-    res.send(req.params);
-});
+https://stackoverflow.com/questions/18251128/why-am-i-suddenly-getting-a-blocked-loading-mixed-active-content-issue-in-fire
 
 
-app.get('/api/ltrack/:year/:month/:day/:hour', (req, res) => {
-    res.send(req.query);
-});
 
 */
