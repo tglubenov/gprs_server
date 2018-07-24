@@ -57,6 +57,31 @@ net.createServer((socket) => {
             gprs_obj[tup[0]] = tup[1];
         });
 
+        gprs_obj['receive_timestamp'] = new Date;
+        gprs_obj['version'] = '1.0';
+
+        if (gprs_obj['lat']) {
+            lister = gprs_obj['lat'].split(' ');
+            if (lister.length == 4) {
+                sec = lister[2] + '.' +lister[3];
+                dec = Number(lister[0])+Number(lister[1]/60)+Number(sec/3600);
+                gprs_obj['lat'] = dec;
+            } else {
+                console.log('Err', lister);
+            }
+        }
+
+        if (gprs_obj['lon']) {
+            lister = gprs_obj['lon'].split(' ');
+            if (lister.length == 4) {
+                sec = lister[2] + '.' +lister[3];
+                dec = Number(lister[0])+Number(lister[1]/60)+Number(sec/3600);
+                gprs_obj['lon'] = dec;
+            } else {
+                console.log('Err', lister);
+            }
+        }
+
         console.log(gprs_obj, typeof gprs_obj);
         console.log(gprs_obj.lon, gprs_obj.lat);
     }
