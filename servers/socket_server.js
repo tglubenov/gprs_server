@@ -46,6 +46,7 @@ net.createServer((socket) => {
 
         // remove all null characters
         ttt = ttt.replace(/\0/g, '');
+        ttt = ttt.replace(/ \r/, '');
 
         ttt = ttt.split(';')[1]+'"';
 
@@ -56,12 +57,8 @@ net.createServer((socket) => {
             gprs_obj[tup[0]] = tup[1];
         });
 
-
         console.log(gprs_obj, typeof gprs_obj);
-
         console.log(gprs_obj.lon, gprs_obj.lat);
-
-
     }
 
 }).listen(3500);
@@ -69,5 +66,3 @@ net.createServer((socket) => {
 //Push message on server terminal
 console.log("TCP Server running on port 3500 ...");
 
-function GPRS_parse(data) {
-}
