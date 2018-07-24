@@ -126,6 +126,7 @@ net.createServer((socket) => {
         }
 
         var newObj = new lg(geojson_object);
+        console.log(newObj);
         newObj.save().then((doc) => {
             console.log('saved lg:', doc);
         }, (e) => {
