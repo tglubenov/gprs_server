@@ -44,6 +44,9 @@ net.createServer((socket) => {
         ttt = ttt.replace(/ R1 /g, '",R1:"');
         ttt = ttt.replace(/ S /g, '",S:"');
 
+        // remove all null characters
+        ttt = ttt.replace(/\0/g, '');
+
         ttt = ttt.split(';')[1]+'"';
 
         var properties = ttt.split(',');
