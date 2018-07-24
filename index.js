@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
     res.send('Hello MapsLab.io');
 });
 
