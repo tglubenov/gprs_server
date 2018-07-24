@@ -48,7 +48,7 @@ net.createServer((socket) => {
         ttt = ttt.replace(/\0/g, '');
         ttt = ttt.replace(/ \r/, '');
 
-        ttt = ttt.split(';')[1]+'"';
+        ttt = ttt.split(';')[1];
 
         var properties = ttt.split(',');
         var gprs_obj = {};
