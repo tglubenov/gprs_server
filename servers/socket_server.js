@@ -19,7 +19,8 @@ var lg = mongoose.model('lg', {
     },
     geometry: {
         type: String,
-        coordinates: Array
+        geometry: Object,
+        properties: Object
     }
 });
 
@@ -130,7 +131,7 @@ net.createServer((socket) => {
         newObj.save().then((doc) => {
             console.log('saved lg:', doc);
         }, (e) => {
-            console.log('Unable to save the object');
+            console.log('Unable to save the object', e);
         });
 
         console.log(geojson_object, typeof geojson_object);
