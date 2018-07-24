@@ -30,10 +30,15 @@ net.createServer((socket) => {
 
         console.log(sender);
         console.log(message);
-        process.stdout.write(message);
+        // process.stdout.write(message);
     }
 
 }).listen(3500);
 
 //Push message on server terminal
 console.log("TCP Server running on port 3500 ...");
+
+
+function GPRS_parse(data) {
+
+}
