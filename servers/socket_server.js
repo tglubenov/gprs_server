@@ -21,7 +21,7 @@ var lg = mongoose.model('lg', {
         type: Object
     },
     properties: {
-        type: Object,
+        type: Object
     }
 });
 
@@ -74,6 +74,7 @@ net.createServer((socket) => {
         ttt = ttt.replace(/ TS /g, ',TS:');
         ttt = ttt.replace(/ PD /g, ',PD:');
         ttt = ttt.replace(/ R1 /g, ',R1:');
+        ttt = ttt.replace(/ R2 /g, ',R2:');
         ttt = ttt.replace(/ S /g, ',S:');
 
         // remove all null characters

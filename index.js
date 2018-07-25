@@ -1,3 +1,6 @@
+const morgan = require('morgan');
+const helmet = require('helmet');
+
 const express = require('express');
 const hbs = require('hbs');
 
@@ -22,9 +25,20 @@ var JsonSchema = new Schema({
     type: Schema.Types.Mixed
 });
 
+var lg = mongoose.model('lg', {
+    type: {
+        type: String
+    },
+    geometry: {
+        type: Object
+    },
+    properties: {
+        type: Object
+    }
+});
+
 // Mongoose Model definition
 var Json = mongoose.model('JString', JsonSchema, 'layer_collection');
-
 
 
 
@@ -32,11 +46,39 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+//app.use(helmet());
+//app.use(morgan('combined'));
+
 /* Get Home Page */
-//app.get('/');
+app.get('/', (req, res) => {
+    res.render('map.hbs', {
+        pageTitle: 'Light Guard Maps',
+        currentYear: new Date().getFullYear()
+    });
+});
 
 app.get('/hello', (req, res) => {
     res.send('Hello MapsLab.io');
+});
+
+/* GET GeoJson Data */
+app.get('/geojson/:id', (req, res)=>{
+    if (req.params.id) {
+        lg.findOne({_id: req.params.id}, {}, function(err, docs) {
+            res.json(docs);
+        });
+    }
+});
+
+/* GET Objects received in last hour */
+app.get('/api/v1.0/recent', (req, res) => {
+    now = new Date();
+    console.log(req.query);
+    if (req.query) {
+        res.send(req.query);
+    } else {
+        lg.find({properties['receive_timestamp'] })
+    }
 });
 
 
