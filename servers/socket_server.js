@@ -63,8 +63,8 @@ net.createServer((socket) => {
         console.log(msg.length, typeof (msg));
 
 //        ttt = msg.replace(/LGSN /g, '\n;LGS:123,lat:');
-        ttt = msg.replace(/LGSN /g, '\nLGS;lat:');
-        ttt = ttt.replace(/ E /g, ',lon:');
+        ttt = msg.replace(/LGSN /g, '\nLGS;lon:');
+        ttt = ttt.replace(/ E /g, ',lat:');
 
         ttt = ttt.replace(/ M1 /g, ',M1:');
         ttt = ttt.replace(/ M2 /g, ',M2:');
